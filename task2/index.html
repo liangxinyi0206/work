@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+</head>
+<body>
+<header>
+    <h1>用户注册</h1>
+</header>
+<main>
+    <!-- 有序列表ol -->
+    <h3>注册步骤</h3>
+    <ol>
+        <li>填写表单信息</li>
+        <li>核对信息</li>
+        <li>提交注册</li>
+    </ol>
+    <!-- 无序列表ul -->
+    <h3>注册须知</h3>
+    <ul>
+        <li>用户名不能少于4位</li>
+        <li>密码区分大小写</li>
+        <li>信息务必真实有效</li>
+    </ul>
+    <!-- 定义列表dl -->
+    <dl>
+        <dt>用户名</dt>
+        <dd>登录使用的账号</dd>
+        <dt>邮箱</dt>
+        <dd>用于找回密码</dd>
+    </dl>
+
+    <!-- 表格 -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="2">会员权益对比</th>
+            </tr>
+            <tr>
+                <th>普通用户</th>
+                <th>VIP用户</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>基础浏览</td>
+                <td>全部功能</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="regForm">
+        <p>
+            用户名：<input type="text" name="username" required>
+        </p >
+        <p>
+            密码：<input type="password" name="password" placeholder="6-16位字符">
+        </p >
+        <p>
+            确认密码：<input type="password" name="confirmPassword">
+        </p >
+        <p>
+            <input type="radio" name="gender" id="male" value="male">
+            <label for="male">男</label>
+            <label><input type="radio" name="gender" value="female">女</label>
+        </p >
+        <p>出生日期：<input type="date"name="birthday"></p >
+        <p>邮箱：<input type="email" name="email" required></p >
+        <p>手机号：<input type="tel" name="phone" pattern="[0-9]{11}"></p >
+        <p>
+            兴趣爱好：
+            <input type="checkbox" name="hobby" value="read" id="read"><label for="read">旅游</label>
+            <input type="checkbox" name="hobby" value="game" id="game"><label for="game">运动</label>
+            <input type="checkbox" name="hobby" value="music" id="music"><label for="music">听音乐</label>
+        </p >
+        <p>
+            所在城市：
+            <select name="city">
+                <option value="changsha" selected>西安</option>
+                <option value="zhuzhou">重庆</option>
+                <option value="xiangtan">常德</option>
+            </select>
+        </p>
+        <p>头像上传：<input type="file" name="avatar" accept="image/*" multiple></p >
+        <p>个人简介：<textarea name="bio" rows="4" cols="50"></textarea></p >
+        <p>
+            <button type="submit">注册</button>
+            <button type="reset">重置</button>
+        </p >
+    </form>
+</main>
+<footer>
+    <p>版权信息 用户注册</p>
+</footer>
+
+<script>
+    const form = document.getElementById("regForm");
+    form.addEventListener("submit",function(e){
+        e.preventDefault();
+        const formData = new FormData(form);
+        let dataObj = {};
+        for(let [k,v] of formData){
+            dataObj[k] = v;
+        }
+        console.log("表单提交数据：",dataObj);
+    })
+</script>
+</body>
+</html>
