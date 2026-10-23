@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Web前端技术推荐墙</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:"Microsoft YaHei",sans-serif;
+            background:#f0f2f5;
+            min-height:100vh;
+            padding:40px 20px;
+        }
+        h1{
+            text-align:center;
+            color:#1a202c;
+            margin-bottom:20px;
+            font-size:28px;
+            text-shadow:0 2px 4px rgba(0,0,0,0.2);
+        }
+        #searchInput{
+            display:block;
+            width:400px;
+            margin:0 auto 30px;
+            padding:10px 14px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+        .tech-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+            gap:20px;
+            max-width:1200px;
+            margin:0 auto;
+        }
+        .tech-card{
+            background:#fff;
+            border-radius:12px;
+            padding:25px 20px;
+            text-align:center;
+            transition:all 0.3s ease;
+            cursor:pointer;
+        }
+        .tech-card:hover {
+            transform:translateY(-8px);
+            box-shadow:0 15px 30px rgba(0,0,0,0.3);
+        }
+        .tech-card .icon{
+            font-size:48px;
+            margin-bottom:12px;
+        }
+        .tech-card h3{
+            font-size:18px;
+            color:#333;
+            margin-bottom:8px;
+        }
+        .tech-card .desc{
+            font-size:13px;
+            color:#888;
+            margin-bottom:12px;
+        }
+        .tech-card .level{
+            display:inline-block;
+            padding:3px 12px;
+            border-radius:12px;
+            font-size:12px;
+            color:#fff;
+            background:#667eea;
+            margin-bottom:10px;
+        }
+        .tech-card .users{
+            font-size:12px;
+            color:#aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web前端技术推荐墙</h1>
+    <!-- ✅ 要求6：顶部搜索框 -->
+    <input id="searchInput" placeholder="搜索技术">
+    <div class="tech-grid" id="techGrid"></div>
+
+    <script>
+        const technologies = [
+            {icon:"🌐",name:"HTML5",desc:"网页的骨架",level:"入门",users:100000},
+            {icon:"🎨",name:"CSS3",desc:"页面样式美化",level:"入门",users:95000},
+            {icon:"⚡",name:"JavaScript",desc:"网页交互脚本",level:"进阶",users:88000},
+            {icon:"💚",name:"Vue.js",desc:"渐进式前端框架",level:"进阶",users:76000},
+            {icon:"⚛️",name:"React",desc:"组件化UI库",level:"进阶",users:72000},
+            {icon:"🟢",name:"Node.js",desc:"JS后端运行环境",level:"进阶",users:60000},
+            {icon:"🔷",name:"TypeScript",desc:"带类型的JS",level:"高级",users:68000},
+            {icon:"📦",name:"Webpack",desc:"前端打包工具",level:"高级",users:52000},
+            {icon:"🚀",name:"Vite",desc:"新一代构建工具",level:"进阶",users:62000},
+            {icon:"▲",name:"Next.js",desc:"React全栈框架",level:"高级",users:55000}
+        ];
+
+        // 渲染函数，严格：map + 模板字符串 + join + innerHTML
+        function render(arr){
+            const htmlStr = arr.map(item => `
+                <div class="tech-card">
+                    <div class="icon">${item.icon}</div>
+                    <h3>${item.name}</h3>
+                    <div class="desc">${item.desc}</div>
+                    <div class="level">${item.level}</div>
+                    <div class="users">学习人数：${item.users}</div>
+                </div>
+            `).join('');
+            document.getElementById('techGrid').innerHTML = htmlStr;
+        }
+        // 初始渲染全部卡片
+        render(technologies);
+
+        // ✅ 要求6：filter + includes 实时搜索过滤
+        const searchInput = document.getElementById('searchInput');
+        searchInput.oninput = function(){
+            let key = this.value;
+            let result = technologies.filter(item=>{
+                return item.name.includes(key) || item.desc.includes(key);
+            })
+            render(result);
+        }
+
+        // ✅ 选做7：事件委托 + closest
+        document.getElementById('techGrid').addEventListener('click',function(e){
+            let card = e.target.closest('.tech-card');
+            if(card){
+                let techName = card.querySelector('h3').innerText;
+                alert(`你点击了：${techName}`);
+            }
+        })
+    </script>
+</body>
+</html>
